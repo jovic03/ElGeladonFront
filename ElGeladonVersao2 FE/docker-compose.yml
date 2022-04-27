@@ -1,0 +1,13 @@
+version: '4.7.1'
+
+services:
+
+  mongo:
+    image: mongo:5.0.7
+    environment:
+      MONGO_INIDB_ROOT_USERNAME: root
+      MONGO_INIDB_ROOT_PASSWORD: example
+    #volumes:
+    # - ./db-data/:data/db
+    ports:
+      - 28017:27017

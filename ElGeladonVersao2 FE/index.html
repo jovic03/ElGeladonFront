@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Geladon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="Home">
+        <div class="Home__header Header">
+            <div class="row">
+              <div class="Header__logo Logo">
+                <img
+                  src="assets/logo.svg"
+                  width="70px"
+                  alt="Logo El Geladon"
+                  class="Logo__icone"
+                />
+                <span class="Logo__titulo"> El Geladon </span>
+              </div>
+    
+              <!-- <div class="Header__opcoes Opcoes">
+                <div class="Opcoes__sacola Sacola">
+                  <img
+                    src="assets/icons/sacola.svg"
+                    width="40px"
+                    class="Sacola__icone"
+                    alt="Sacola de compras"
+                  />
+                </div>
+              </div> -->
+
+              <div class="search-space">
+                <input type="text" id="search-input" placeholder="Digite o ID da paleta" />
+                <button class="search-button" onclick="findByIdPaletas()"><i class="bi bi-search"></i></button>
+            </div>
+
+            </div>
+          </div>
+      <!-- Listagem de uma paleta pelo seu ID -->
+      <h2>Pesquisar Paleta</h2>
+      <div class="paleta-escolhida-espaco">
+        <!-- Área do form -->
+        <div id="paleta-escolhida-input-espaco">
+          <input
+            type="number"
+            id="idPaleta"
+            placeholder="Digite o ID da paleta e clique em 'Escolher'"
+          />
+          <button id="idPaletaButton" class="default-button" onclick="findByIdPaletas()">
+            ESCOLHER
+          </button>
+        </div>
+        <!-- Área de renderizar a paleta encontrada -->
+        <div id="paletaEscolhida"></div>
+      </div>
+
+      <!-- AREA do modal para criar uma paleta -->
+      <section class="button-modal-create">
+        <button type="button" id="createPaletaButton" class="default-button" onclick="abrirModal()">Cadastrar Paleta</button>
+      </section>
+
+      <section class="modal-overlay" id="overlay">
+
+            <div class="modal">
+
+              <div class="modal-header">
+                <h2 id="title-header-modal">Cadastrar uma paleta</h2>
+                <a onclick="fecharModalCadastro()" class="close-modal">x</a>
+              </div>
+
+              <div class="modal-body">
+                    <div>
+                        <input type="hidden" id="id"/>
+                        <input type="text" name="sabor" id="sabor" placeholder="Sabor da Paleta">
+                        <input type="number" name="preco" id="preco" placeholder="Preço da Paleta">
+                        <textarea type="text" name="descricao" id="descricao" placeholder="Descrição da Paleta"
+                            rows="5"></textarea>
+                        <input type="text" name="foto" id="foto" placeholder="Link da Foto da Paleta">
+                        <button class="default-button" id="button-form-modal" onclick="submitPaleta()">Cadastrar </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      
+      <!-- modal de confirmacao de delecao -->
+
+      <section class="modal-overlay" id="overlay-delete">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="title-header-modal">Confirmação de deleção</h2>
+                <a onclick="fecharModalDelete()" class="close-modal">x</a>
+            </div>
+            <div class="modal-body-delete">
+                <p>Deseja realmente apagar essa paleta?</p>
+                <div class="btns_delete">
+                    <button class="btn_delete_no btn_delete" onclick="fecharModalDelete()">Não</button>
+                    <button class="btn_delete_yes btn_delete" id="button-delete" >Sim</button>
+                </div>
+            </div>
+        </div>
+    </section>
+      
+
+
+    <section class="options">
+      <span class="msg-alert"></span>
+      <div class="btns-list-cad">
+          <a href="/" class="default-button list-all">Listar todas as paletas</a>
+          <button type="button" class="default-button" onclick="showModal()">Cadastrar Paleta</button>
+      </div>
+    </section>
+
+      <!-- Listagem de todas as paletas -->
+      <h2>Paletas Disponíveis</h2>
+
+      <div class="Home__container">
+        <!-- Vamos renderizar todas as paletas disponíveis no backend aqui, na div com id igual a paletaLst-->
+        <div class="PaletaLista" id="paletaList"></div>
+      </div>
+    </div>
+    <!-- Script -->
+    <script src="script.js"></script>
+  </body>
+</html>
