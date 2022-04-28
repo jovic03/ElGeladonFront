@@ -18,7 +18,8 @@ function PaletaLista() {
   }
 
     return (
-      <div className="PaletaLista">
+      <div className="PaletaLista">{/*tem que ser chave pois aqui é js---paleta pega uma paleta no paletas.js e o index serve pra mapear o indice e serve pro js */}
+      {/* for (int i = 0;i<20;i++): */}
         {paletas.map((paleta,index) =>
             <div className="PaletaListaItem" key={`PaletaListaItem-${index}`}>
               <span className='PaletaListaItem__badge'>{paletaSelecionada[index] || 0}</span>
