@@ -2,6 +2,7 @@ import './PaletaLista.css';
 import { PaletaService } from 'services/PaletaService';
 import { useState, useEffect } from 'react';//useEffect: renderiza algo mas faz algo depois, useState vai alterando seu estado
 import PaletaListaItem from 'components/PaletaListaItem/PaletaListaItem';
+import PaletaDetalhesModal from 'components/PaletaDetalhesModal/PaletaDetalhesModal';
 
 function PaletaLista() {
 
@@ -9,10 +10,17 @@ function PaletaLista() {
 
   const [paletaSelecionada, setPaletaSelecionada] = useState({});
 
+  const [paletaModal, setPaletaModal] = useState(false);
+
   const getLista = async ()=>{//substituto dos mock
     const response = await PaletaService.getLista();
     setPaletas(response);
   }
+
+  const getPaletaById = async (paletaId) => {//const que ira pegar as peletas pelo ID ao inves de interar e buscar todas no back
+    const response = await PaletaService.getById(paletaId);
+    setPaletaModal(response);//como ele afeta somente o modal nao sera o setPaletas
+  };
 
 
   const OnAdd = (paletaIndex) => {
@@ -45,9 +53,15 @@ function PaletaLista() {
               quantidadeSelecionada={paletaSelecionada[index]}
               index={index}
               OnAdd={(index)=>{OnAdd(index)}}//tem que passar pra nao ficar em loop infinito de callback
-              OnRemove={(index)=>{OnRemove(index)}} />
+              OnRemove={(index)=>{OnRemove(index)}} 
+              clickItem={(paletaId) => getPaletaById(paletaId)}/>
           ))
         }
+
+        {paletaModal && <PaletaDetalhesModal 
+          paleta={paletaModal} 
+          closeModal={() => setPaletaModal(false)} />}
+
       </div>
     )
   }

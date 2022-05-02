@@ -2,11 +2,16 @@ import { Api } from "../helpers/Api";
 
 const parseResponse = (response) => response.json();
 
+const parseTransformLista = (response) =>//objetos transformados
+  parseResponse(response).then((paletas) => paletas.map(transformPaleta));
+
+const parseTransformItem = (response) => parseResponse(response).then(transformPaleta);
+
 export const PaletaService = {
   getLista: () =>
     fetch(Api.paletaLista(), { method: "GET" }).then(parseTransformLista),
   getById: (id) =>
-    fetch(Api.paletaById(id), { method: "GET" }).then(parseResponse),
+    fetch(Api.paletaById(id), { method: "GET" }).then(parseTransformItem),
   create: () =>
     fetch(Api.createPaleta(), { method: "POST" }).then(parseResponse),
   updtateById: (id) =>
@@ -28,8 +33,6 @@ const transformPaleta = (paleta) => {//faz a 'traducao' dos dados do back para o
   };
 };
 
-const parseTransformLista = (response) =>//objetos transformados
-  parseResponse(response).then((paletas) => paletas.map(transformPaleta));
 
 
 
