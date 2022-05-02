@@ -10,6 +10,18 @@ function PaletaLista() {
 
   const [paletaSelecionada, setPaletaSelecionada] = useState({});
 
+  /*const paleta = {//const somente para teste
+    titulo: "Açaí com Leite Condensado",
+    descricao:
+      "Quam vulputate dignissim suspendisse in est ante in nibh mauris.",
+    foto: "assets/images/acai-com-leite-condensado.png",
+    preco: 10.0,
+    sabor: "Açaí",
+    recheio: "Leite Condensado",
+    possuiRecheio: true,
+  };*/
+
+
   const [paletaModal, setPaletaModal] = useState(false);
 
   const getLista = async ()=>{//substituto dos mock
