@@ -10,14 +10,24 @@ const parseTransformItem = (response) => parseResponse(response).then(transformP
 export const PaletaService = {
   getLista: () =>
     fetch(Api.paletaLista(), { method: "GET" }).then(parseTransformLista),
+
   getById: (id) =>
     fetch(Api.paletaById(id), { method: "GET" }).then(parseTransformItem),
-  create: () =>
-    fetch(Api.createPaleta(), { method: "POST" }).then(parseResponse),
+
+  create: (paleta) =>
+    fetch(Api.createPaleta(), { 
+      method: "POST", 
+      body:JSON.stringify(paleta), 
+      mode:'cors', 
+      headers:{'Content-Type':'application/json'}
+    }).then(parseResponse),//pega o json do modal e transforma em texto pra create no banco
+
   updtateById: (id) =>
     fetch(Api.updatePaletaById(id), { method: "PUT" }).then(parseResponse),
+
   deleteById: (id) =>
     fetch(Api.deletePaletaById(id), { method: "DELETE" }).then(parseResponse),
+
 };
 
 const transformPaleta = (paleta) => {//faz a 'traducao' dos dados do back para o front exibir corretamente
