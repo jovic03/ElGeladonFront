@@ -15,11 +15,11 @@ export const PaletaService = {
     fetch(Api.paletaById(id), { method: "GET" }).then(parseTransformItem),
 
   create: (paleta) =>
-    fetch(Api.createPaleta(), { 
+    fetch(Api.createPaleta(), {
       method: "POST", 
-      body:JSON.stringify(paleta), 
-      mode:'cors', 
-      headers:{'Content-Type':'application/json'}
+      body: JSON.stringify(paleta), 
+      mode: "cors", 
+      headers: {"Content-Type": "application/json",}
     }).then(parseResponse),//pega o json do modal e transforma em texto pra create no banco
 
   updtateById: (id) =>

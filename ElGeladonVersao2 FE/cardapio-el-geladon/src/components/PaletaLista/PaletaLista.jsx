@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';//useEffect: renderiza algo mas faz 
 import PaletaListaItem from 'components/PaletaListaItem/PaletaListaItem';
 import PaletaDetalhesModal from 'components/PaletaDetalhesModal/PaletaDetalhesModal';
 
-function PaletaLista() {
+function PaletaLista({ paletaCriada }) {
 
   const [paletas, setPaletas] = useState([]);//vai vir da Api
 
@@ -50,6 +50,16 @@ function PaletaLista() {
     const paleta = { [paletaIndex]: Number(paletaSelecionada[paletaIndex] || 0) -1 }
     setPaletaSelecionada({...paletaSelecionada, ...paleta})
   };
+
+  const adicionaPaletaNaLista = (paleta) => {
+    const lista = [...paletas, paleta];
+    setPaletas(lista);
+  };
+
+  useEffect(() => {
+    if (paletaCriada) adicionaPaletaNaLista(paletaCriada);}
+      ,[paletaCriada]
+  );
   
   useEffect(() => {getLista();
     }, []);
