@@ -4,12 +4,15 @@ import { useState, useEffect , useCallback } from 'react';//useEffect: renderiza
 import PaletaListaItem from 'components/PaletaListaItem/PaletaListaItem';
 import PaletaDetalhesModal from 'components/PaletaDetalhesModal/PaletaDetalhesModal';
 import { ActionMode } from "../../constants/index";
+import {matchByText} from '../../helpers/utils'
 
 function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEditada,paletaRemovida }) {
 
   const selecionadas = JSON.parse(localStorage.getItem('selecionadas')) ?? {};
 
   const [paletas, setPaletas] = useState([]);//vai vir da Api
+
+  const [paletasFiltradas, setPaletasFiltradas] = useState([]);//hook do filtro
 
   const [paletaSelecionada, setPaletaSelecionada] = useState(selecionadas);
 
@@ -71,6 +74,12 @@ function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEdi
     [paletas]
   );
 
+  const filtroPorTitulo = ({target}) => {
+    const lista = [...paletas].filter(({titulo}) => matchByText(titulo, target.value))
+    setPaletasFiltradas(lista);
+  }
+  
+
   useEffect(() => {
     setSelecionadas();
   }, [ setSelecionadas, paletaSelecionada ]);
@@ -80,6 +89,7 @@ function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEdi
     ){
       adicionaPaletaNaLista(paletaCriada);
     }
+    setPaletasFiltradas(paletas)
   },[adicionaPaletaNaLista, paletaCriada , paletas]);
   
   
@@ -88,25 +98,32 @@ function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEdi
   
 
     return (
-      <div className="PaletaLista">{/*for (int i = 0;i<20;i++) ---tem que ser chave pois aqui é js---paleta pega uma paleta no paletas.js e o index serve pra mapear o indice e serve pro js */}
-        {
-          paletas.map((paleta,index)=>(
-            <PaletaListaItem 
-              mode={mode}
-              key={`PaletaListaItem-${index}`}
-              paleta={paleta}
-              quantidadeSelecionada={paletaSelecionada[index]}
-              index={index}
-              OnAdd={(index)=>{OnAdd(index)}}//tem que passar pra nao ficar em loop infinito de callback
-              OnRemove={(index)=>{OnRemove(index)}} 
-              clickItem={(paletaId) => getPaletaById(paletaId)}/>
-          ))
-        }
+      <div className="PaletaLista-Wrapper">
+        <input
+          className="PaletaLista-filtro"
+          onChange={filtroPorTitulo}
+          placeholder="Busque uma paleta pelo título" />
 
-        {paletaModal && <PaletaDetalhesModal 
-          paleta={paletaModal} 
-          closeModal={() => setPaletaModal(false)} />}
+        <div className="PaletaLista">{/*for (int i = 0;i<20;i++) ---tem que ser chave pois aqui é js---paleta pega uma paleta no paletas.js e o index serve pra mapear o indice e serve pro js */}
+          {
+            paletasFiltradas.map((paleta,index)=>(
+              <PaletaListaItem 
+                mode={mode}
+                key={`PaletaListaItem-${index}`}
+                paleta={paleta}
+                quantidadeSelecionada={paletaSelecionada[index]}
+                index={index}
+                OnAdd={(index)=>{OnAdd(index)}}//tem que passar pra nao ficar em loop infinito de callback
+                OnRemove={(index)=>{OnRemove(index)}} 
+                clickItem={(paletaId) => getPaletaById(paletaId)}/>
+            ))
+          }
 
+          {paletaModal && <PaletaDetalhesModal 
+            paleta={paletaModal} 
+            closeModal={() => setPaletaModal(false)} />}
+
+        </div>
       </div>
     )
   }
