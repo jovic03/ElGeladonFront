@@ -22,8 +22,14 @@ export const PaletaService = {
       headers: {"Content-Type": "application/json",}
     }).then(parseResponse),//pega o json do modal e transforma em texto pra create no banco
 
-  updtateById: (id) =>
-    fetch(Api.updatePaletaById(id), { method: "PUT" }).then(parseResponse),
+    updtateById: (id, paleta) => fetch(Api.updatePaletaById(id), {
+      method: "PUT", 
+      body: JSON.stringify(paleta), 
+      mode: "cors", 
+      headers: 
+        {
+          "Content-Type": "application/json",
+        } }).then(parseResponse),
 
   deleteById: (id) =>
     fetch(Api.deletePaletaById(id), { method: "DELETE" }).then(parseResponse),
