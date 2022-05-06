@@ -15,7 +15,7 @@ const SacolaContext = {
   
   
   export const Api = {
-    baseUrl: "http://localhost:3333",
+    baseUrl: "https://elgeladonbackend-production.up.railway.app",
     ...PaletaContext,//usando spread pra que tudo que esteja no PaletaContext exista no Api
     ...SacolaContext,
   };
