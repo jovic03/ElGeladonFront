@@ -8,7 +8,7 @@ import {matchByText} from '../../helpers/utils'
 
 function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEditada,paletaRemovida }) {
 
-  const selecionadas = JSON.parse(localStorage.getItem('selecionadas')) ?? {};
+  const selecionadas = JSON.parse(localStorage.getItem('selecionadas')) ?? {};//pega o que ta no localstorage e armazena no carrinho
 
   const [paletas, setPaletas] = useState([]);//vai vir da Api
 
@@ -49,8 +49,8 @@ function PaletaLista({ paletaCriada , mode, updatePaleta,deletePaleta, paletaEdi
     //console.log(paletaSelecionada);
   }
 
-  const setSelecionadas = useCallback(() => {//vai manter os dados armazenados na memoria, entao quando der f5 o que tiver sido selcionado ou alterado permanece
-    if(!paletas.length) return
+  const setSelecionadas = useCallback(() => {//essa const vai manter os dados armazenados na memoria, entao quando der f5 o que tiver sido selcionado ou alterado permanece
+    if(!paletas.length) return;
 
     const entries = Object.entries(paletaSelecionada);
     const sacola = entries.map(arr => ({
