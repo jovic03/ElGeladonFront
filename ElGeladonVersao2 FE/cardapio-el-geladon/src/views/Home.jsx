@@ -17,7 +17,6 @@ import {SacolaService} from '../services/SacolaService'
 function Home(){
 
     const [canShowAdicionaPaletaModal, setCanShowAdicionaPaletaModal] = useState(false);
-
     const [paletaParaAdicionar, setPaletaParaAdicionar] = useState();
 
     const [modoAtual,setModoAtual] = useState(ActionMode.NORMAL);
