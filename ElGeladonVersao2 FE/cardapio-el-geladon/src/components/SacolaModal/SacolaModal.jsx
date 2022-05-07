@@ -19,7 +19,7 @@ function SacolaModal({ closeModal }) {
     closeModal();
   };
 
-  const getListas = async () => {
+  const getListas = async () => {//pega info da paleta da api
     const paletaLista = await PaletaService.getLista();
     const sacolaLista = await SacolaService.getLista();
 
