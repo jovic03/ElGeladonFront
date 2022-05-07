@@ -5,7 +5,7 @@ import './Loading.css'
 function Loading() {
   const navigate = useNavigate();
   
-  useEffect(() => {
+  useEffect(() => {//limpa o localstorage e aciona o navigate (loading)
     localStorage.setItem("sacola", "[]");
     localStorage.setItem("selecionadas", "{}");
   
